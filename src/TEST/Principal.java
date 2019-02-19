@@ -23,6 +23,7 @@ public class Principal extends javax.swing.JFrame {
     public static String nomUtilisateur = "SERGE SULA BOSIO";
     public static String nomApplication = "JS2BMENU";
     public MenuContextuel menuContextuel = null;
+    public RubriqueSimple mNew, mMod, mSupp, mQuit = null;
     
     public final ImageIcon Infos_02 = new javax.swing.ImageIcon(getClass().getResource("/IMG/Infos02.png"));
     
@@ -40,7 +41,7 @@ public class Principal extends javax.swing.JFrame {
         
         RubriqueMenu menuCalculs = new RubriqueMenu("Calculs");
         RubriqueMenu menuCalculsPression = new RubriqueMenu("Pression");
-        RubriqueSimple menuCalculsPressionAltitude = new RubriqueSimple("Altitude", Infos_02, new RubriqueListener() {
+        RubriqueSimple menuCalculsPressionAltitude = new RubriqueSimple("Altitude", 12, true, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 ecran.setText("Pression/Altitude");
@@ -51,7 +52,7 @@ public class Principal extends javax.swing.JFrame {
         RubriqueMenu menuCalculsPressionPk = new RubriqueMenu("Point Kilométrique");
         menuCalculsPression.Ajouter(menuCalculsPressionPk);
         
-        RubriqueSimple menuCalculsPressionPKStationOrigine = new RubriqueSimple("Définir comme Station d'origine", Infos_02, new RubriqueListener() {
+        RubriqueSimple menuCalculsPressionPKStationOrigine = new RubriqueSimple("Définir comme Station d'origine", 12, false, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 ecran.setText("Station d'Origine définie avec succès!");
@@ -60,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
         );
         menuCalculsPressionPk.Ajouter(menuCalculsPressionPKStationOrigine);
         
-        RubriqueSimple menuCalculsPressionPKStationRelais = new RubriqueSimple("Définir comme Station relais", Infos_02, new RubriqueListener() {
+        RubriqueSimple menuCalculsPressionPKStationRelais = new RubriqueSimple("Définir comme Station relais", 12, false, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 ecran.setText("Station de relais définie avec succès!");
@@ -77,32 +78,39 @@ public class Principal extends javax.swing.JFrame {
         menuCalculs.Ajouter(menuCalculsFouite);
         
         menuContextuel.Ajouter(menuCalculs);
-        
-        menuContextuel.Ajouter(new RubriqueSimple("Nouveau", Infos_02, new RubriqueListener() {
+        mNew = new RubriqueSimple("Nouveau", 12, true, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 ecran.setText("Nouveau");
             }
-        }));
-        menuContextuel.Ajouter(new RubriqueSimple("Modifier", Infos_02, new RubriqueListener() {
+        });
+        menuContextuel.Ajouter(mNew);
+        
+        mMod = new RubriqueSimple("Modifier", 12, false, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 ecran.setText("Modifier");
             }
-        }));
-        menuContextuel.Ajouter(new RubriqueSimple("Supprimer", Infos_02, new RubriqueListener() {
+        });
+        menuContextuel.Ajouter(mMod);
+        
+        mSupp = new RubriqueSimple("Supprimer", 12, false, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 ecran.setText("Supprimer");
             }
-        }));
+        });
+        menuContextuel.Ajouter(mSupp);
+        
         menuContextuel.Ajouter(new RubriqueSeparateur());
-        menuContextuel.Ajouter(new RubriqueSimple("Quitter", Infos_02, new RubriqueListener() {
+        mQuit = new RubriqueSimple("Quitter", 12, false, Infos_02, new RubriqueListener() {
             @Override
             public void OnEcouterLaSelection() {
                 System.exit(12);
             }
-        }));
+        });
+        
+        menuContextuel.Ajouter(mQuit);
         
         ecran.setText("MenuContextuel Prêt !");
     }
@@ -130,6 +138,7 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         scrollMenu = new javax.swing.JScrollPane();
         ecran = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,6 +164,13 @@ public class Principal extends javax.swing.JFrame {
 
         ecran.setText("Prêt.");
 
+        jButton3.setText("setGras");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,12 +178,14 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(scrollMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
-                    .addComponent(ecran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2))
+                        .addComponent(ecran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -179,7 +197,9 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ecran)
-                .addGap(0, 252, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addGap(0, 220, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,6 +223,11 @@ public class Principal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_scrollMenuMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        mNew.setGras(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,6 +268,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel ecran;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane scrollMenu;
     // End of variables declaration//GEN-END:variables
 }

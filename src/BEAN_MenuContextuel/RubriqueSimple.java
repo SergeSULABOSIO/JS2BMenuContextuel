@@ -5,6 +5,7 @@
  */
 package BEAN_MenuContextuel;
 
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 
@@ -14,8 +15,16 @@ import javax.swing.JMenuItem;
  */
 public class RubriqueSimple extends JMenuItem{
 
-    public RubriqueSimple(String nom, ImageIcon icone, RubriqueListener rubriqueListener) {
+    int taille = 12;
+    
+    public RubriqueSimple(String nom, int taille, boolean isGras, ImageIcon icone, RubriqueListener rubriqueListener) {
         super(nom, icone);
+        this.taille = taille;
+        if(isGras == true){
+            setFont(new java.awt.Font("Tahoma", Font.BOLD, this.taille));
+        }else{
+            setFont(new java.awt.Font("Tahoma", Font.PLAIN, this.taille));
+        }
         this.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (rubriqueListener != null) {
@@ -23,6 +32,31 @@ public class RubriqueSimple extends JMenuItem{
                 }
             }
         });
+    }
+    
+    public void setGras(boolean isGras){
+        if(isGras == true){
+            setFont(new java.awt.Font("Tahoma", Font.BOLD, taille));
+        }else{
+            setFont(new java.awt.Font("Tahoma", Font.PLAIN, taille));
+        }
+    }
+    
+    public boolean isGras(){
+        if(getFont().getStyle() == Font.BOLD){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public void setText(String texte, int taille, boolean isGras){
+        setText(texte);
+        if(isGras == true){
+            setFont(new java.awt.Font("Tahoma", Font.BOLD, taille));
+        }else{
+            setFont(new java.awt.Font("Tahoma", Font.PLAIN, taille));
+        }
     }
 
     public JMenuItem getItem() {
