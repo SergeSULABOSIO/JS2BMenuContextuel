@@ -5,6 +5,7 @@
  */
 package BEAN_MenuContextuel;
 
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
@@ -32,6 +33,10 @@ public class RubriqueSimple extends JMenuItem{
                 }
             }
         });
+    }
+    
+    public void setCouleur(Color couleur){
+        setForeground(couleur);
     }
     
     public void setGras(boolean isGras){
